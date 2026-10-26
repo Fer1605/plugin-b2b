@@ -1,0 +1,24 @@
+{
+    "name": "fer1605/plugin-b2b",
+    "description": "Manage centralized B2B price lists for WooCommerce and assign them directly to individual users.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "php": ">=8.0.30"
+    },
+    "autoload": {
+        "psr-4": {
+            "B2BPriceLists\\": "includes/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true
+    },
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Fer Santizo",
+            "homepage": "https://github.com/Fer1605"
+        }
+    ]
+}

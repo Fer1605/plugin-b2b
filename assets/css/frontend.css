@@ -1,0 +1,175 @@
+/**
+ * B2B Price Lists -- storefront styling.
+ *
+ * Minimal, scoped exclusively under the plugin's own `b2bpl-*` classes.
+ * Never targets theme markup or generic WooCommerce classes directly, so it
+ * can never leak into unrelated elements.
+ */
+
+/* ---------------------------------------------------------------------------
+   Hierarchy: the price actually charged is always the one that stands out.
+   The compared (struck) price and the minimum-quantity note are set in `em`,
+   so they stay clearly smaller than whatever size the theme gives the price
+   -- on a card, on the product page, in the cart. A theme that sizes them in
+   pixels on its own wins, as it should.
+   --------------------------------------------------------------------------- */
+
+.b2bpl-price del,
+.b2bpl-price .b2bpl-price__base,
+.b2bpl-price .b2bpl-price__regular {
+	margin-right: 0.35em;
+	font-size: 0.62em;
+	font-weight: 400;
+	opacity: 0.65;
+}
+
+.b2bpl-price del .woocommerce-Price-amount,
+.b2bpl-price del bdi {
+	font-size: inherit;
+	font-weight: inherit;
+	color: inherit;
+}
+
+.b2bpl-price ins,
+.b2bpl-price .b2bpl-price__final {
+	text-decoration: none;
+	background: transparent;
+}
+
+.b2bpl-price .b2bpl-price__min {
+	font-style: normal;
+	font-size: 0.62em;
+	font-weight: 400;
+	opacity: 0.8;
+}
+
+/* ---------------------------------------------------------------------------
+   Two-line layout (Settings -> Price layout -> Two lines).
+
+   First line: the figure the buyer acts on, and nothing else -- the price paid
+   and its offer badge. Second line: the small print that qualifies it, the
+   minimum quantity and the compared price together, at one size.
+
+   Structure only: sizes, colours and weights are deliberately left to the
+   theme, which is the one that knows what a product card looks like. Two
+   things are decided here. The second line always occupies its height even
+   when empty, otherwise a grid where only some products carry a wholesale
+   price would have its cards, and their buttons, out of line with each other.
+   And on a catalogue card both lines are centred on each other, which is the
+   point of stacking them; on the product page the price keeps whatever
+   alignment the theme gives that column.
+   --------------------------------------------------------------------------- */
+
+.b2bpl-price--stacked {
+	display: flex;
+	flex-direction: column;
+	align-items: inherit;
+	width: 100%;
+}
+
+.b2bpl-price--stacked.b2bpl-price--loop {
+	align-items: center;
+	text-align: center;
+}
+
+.b2bpl-price--stacked .b2bpl-price__primary {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.4em;
+}
+
+.b2bpl-price--stacked.b2bpl-price--loop .b2bpl-price__primary {
+	justify-content: center;
+}
+
+.b2bpl-price--stacked .b2bpl-price__secondary {
+	display: block;
+	min-height: 1.4em;
+	font-size: 0.7em;
+	line-height: 1.4em;
+	opacity: 0.75;
+}
+
+/* Inside the second line everything is one size: the minimum quantity and the
+   compared price are the same kind of note, and the second line already sets
+   that size once. */
+.b2bpl-price--stacked .b2bpl-price__secondary .b2bpl-price__min,
+.b2bpl-price--stacked .b2bpl-price__secondary .b2bpl-price__reference,
+.b2bpl-price--stacked .b2bpl-price__secondary .woocommerce-Price-amount {
+	font-size: inherit;
+	font-weight: inherit;
+	line-height: inherit;
+	color: inherit;
+	opacity: 1;
+}
+
+.b2bpl-price--stacked .b2bpl-price__final {
+	text-decoration: none;
+}
+
+.b2bpl-min-qty-note {
+	display: block;
+	font-size: 0.62em;
+	font-weight: normal;
+	opacity: 0.8;
+}
+
+.b2bpl-price-table-wrap {
+	margin: 1.5em 0;
+}
+
+.b2bpl-price-table-title {
+	margin-bottom: 0.5em;
+}
+
+.b2bpl-price-table {
+	border-collapse: collapse;
+	width: 100%;
+	max-width: 480px;
+}
+
+.b2bpl-price-table th,
+.b2bpl-price-table td {
+	border: 1px solid #dcdcde;
+	padding: 0.5em 0.75em;
+	text-align: left;
+}
+
+.b2bpl-price-table thead th {
+	font-weight: 600;
+	background: #f6f7f7;
+}
+
+/* Offer badge ("-20%"), shared by the main price, the variation price, the
+   cart lines and every row of the wholesale price table. Solid red with no
+   border so it reads as an offer at a glance, and small: it points at the
+   price, it does not compete with it. The size follows the price but never
+   grows past 13px nor shrinks under 10px. Recolour it from a theme with
+   `--b2bpl-badge-bg` / `--b2bpl-badge-color`. */
+.b2bpl-discount-badge {
+	display: inline-block;
+	margin-left: 0.4em;
+	padding: 0.15em 0.5em;
+	border: 0;
+	border-radius: 3px;
+	background: var( --b2bpl-badge-bg, #d63638 );
+	color: var( --b2bpl-badge-color, #fff );
+	font-size: clamp( 10px, 0.55em, 13px );
+	font-weight: 700;
+	line-height: 1.4;
+	letter-spacing: 0.02em;
+	vertical-align: middle;
+	white-space: nowrap;
+}
+
+.b2bpl-price-table-price del {
+	margin-right: 0.35em;
+	font-size: 0.8em;
+	opacity: 0.6;
+}
+
+.b2bpl-price-table-row--offer .b2bpl-price-table-price ins {
+	font-weight: 700;
+	text-decoration: none;
+}

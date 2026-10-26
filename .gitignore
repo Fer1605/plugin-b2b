@@ -1,0 +1,11 @@
+# Paquetes generados
+*.zip
+/build/
+
+# Sistema y editores
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
+.env
